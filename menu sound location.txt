@@ -1,0 +1,15 @@
+check-off
+check-on
+clickshort
+menuclick
+shutter: LR2 ht7 -Cloudy Sky-
+
+menuhit
+hitsounds: maps
+
+select-expand: LR2 Seraphic
+
+failsound
+click-shortconfirm: LR2 default
+
+menuback: LR2 Endless Circulation
