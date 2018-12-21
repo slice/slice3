@@ -1,3 +1,5 @@
+/_flavors/_private
+
 # output files
 /_out
 /_output
@@ -5,3 +7,7 @@
 /output
 
 .DS_Store
+
+*.pyc
+__pycache__
+.mypy_cache
