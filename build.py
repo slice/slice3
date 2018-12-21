@@ -90,7 +90,10 @@ def copy_component(output, component):
     copytree(
         src,
         dst,
-        ignore=shutil.ignore_patterns('*.db', '*.psd', '*.xcf', '*.pxm', '*.pdn'),
+        ignore=shutil.ignore_patterns(
+            '*.db', '*.psd', '*.xcf', '*.pxm', '*.pdn',
+            '.DS_Store',
+        ),
     )
 
 
