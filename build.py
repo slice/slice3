@@ -104,23 +104,29 @@ def build(output, args):
 
     output.mkdir(parents=True, exist_ok=True)
 
-    components = skin_components - set(args.without)
+    components = skin_components
 
-    for excluded in args.without:
-        no_name = f'no-{excluded}'
-        if not Path(no_name).is_dir():
-            continue
-        print(f'[*] Automatically including {no_name} component')
-        components.add(no_name)
+    to_merge = args.merge
+    merged = set()
+    for specifier in to_merge:
+        path = Path.cwd() / specifier
+        if not path.is_dir():
+            print(f'[-] {path} (deduced from {specifier}) does not point to a directory.')
+            return
+        print(f'[*] Merging {specifier}')
+        merged.add(path.name)
+        copy_component(output, path)
+
+    components = components - merged
 
     for num, component in enumerate(components):
         progress = f'{num + 1}/{len(components)}'
         print(f'[*] Merging component {component} to {output} [{progress}]')
-        copy_component(str(output), component)
+        copy_component(output, component)
 
     print(f'[*] Merging component num to {output} (*/*)')
     (output / 'num').mkdir(exist_ok=True)
-    copy_component(str(output / 'num'), 'num')
+    copy_component(output / 'num', 'num')
 
     for component in static_components:
         print(f'[*] Copying static component {component}')
@@ -136,11 +142,10 @@ if __name__ == '__main__':
         action='store_true',
     )
     parser.add_argument(
-        '--without', '-x',
+        '--merge', '-m',
         metavar='COMPONENT',
-        help='exclude skin component (can be used multiple times)',
+        help='merge component (can be used multiple times)',
         action='append',
-        choices=skin_components,
         default=[],
     )
     args = parser.parse_args()
