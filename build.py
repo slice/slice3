@@ -91,8 +91,7 @@ def copy_component(output, component):
         src,
         dst,
         ignore=shutil.ignore_patterns(
-            '*.db', '*.psd', '*.xcf', '*.pxm', '*.pdn',
-            '.DS_Store',
+            '*.db', '*.psd', '*.xcf', '*.pxm', '*.pxd', '*.pdn', '.DS_Store',
         ),
     )
 
